@@ -1,3 +1,5 @@
+// Copyright 2019, Taeber Rapczak <taeber@rapczak.com>
+// MIT License https://opensource.org/licenses/MIT
 #ifndef TESTS_H
 #define TESTS_H
 
