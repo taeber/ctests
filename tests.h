@@ -11,11 +11,13 @@ char *names[MAX_TESTS];
 TestCase cases[MAX_TESTS];
 int numCases;
 
+#define MACROSTRING(X) #X
+#define STRING(X) MACROSTRING(X)
 #define test(name) \
     int test_##name(void); \
     __attribute__((constructor)) \
     void test_##name_init(void) { \
-        names[numCases] = #name; \
+        names[numCases] = __FILE__ "@" STRING(__LINE__) ":" #name; \
         cases[numCases] = test_##name; \
         numCases++; \
     } \
@@ -32,14 +34,14 @@ int main() {
             continue;
         }
 
-        fprintf(stderr, "test %s failed\n", names[i]);
+        fprintf(stderr, "FAIL: %s\n", names[i]);
         failed++;
     }
 
     putc('\n', stderr);
-    fprintf(stderr, "%03d passed\n", passed);
-    fprintf(stderr, "%03d failed\n", failed);
-    fprintf(stderr, "%03d total\n", numCases);
+    fprintf(stderr, "%3d passed\n", passed);
+    fprintf(stderr, "%3d failed\n", failed);
+    fprintf(stderr, "%3d total\n", numCases);
 
     return failed;
 }
