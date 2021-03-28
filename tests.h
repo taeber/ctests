@@ -16,9 +16,9 @@ int numCases;
 #define MACROSTRING(X) #X
 #define STRING(X) MACROSTRING(X)
 #define test(name) \
-    int test_##name(void); \
+    int test_ ## name(void); \
     __attribute__((constructor)) \
-    void test_##name_init(void) { \
+    void test_ ## name ## _init(void) { \
         names[numCases] = __FILE__ "@" STRING(__LINE__) ":" #name; \
         cases[numCases] = test_##name; \
         numCases++; \
